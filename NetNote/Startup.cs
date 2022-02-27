@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NetNote.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,9 @@ namespace NetNote
             string conn = Configuration["ConnectionStrings:NoteDB"];
             //Models.NoteContext.connectiongString = conn;
             services.AddDbContext<Models.NoteContext>(options => options.UseSqlServer(conn));
+
+            services.AddScoped<INoteTypeRepository, NoteTypeRepository>();
+            services.AddScoped<INoteRepository, NoteRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,7 +58,7 @@ namespace NetNote
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Note}/{action=Index}/{id?}");
             });
         }
     }

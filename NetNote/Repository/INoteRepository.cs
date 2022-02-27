@@ -12,5 +12,6 @@ namespace NetNote.Repository
         Task<List<Note>> ListAsync();
         Task AddAsync(Note note);
         Task UpdateAsync(Note note);
+        Tuple<List<Note>, int> PageList(int pageindex, int pagesize);
     }
 }

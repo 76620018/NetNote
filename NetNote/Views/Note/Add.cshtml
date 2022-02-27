@@ -1,0 +1,27 @@
+﻿@model NetNote.ViewModels.NoteModel
+@{ 
+    var types = ViewBag.Types as IEnumerable<SelectListItem>;
+}
+
+<div class="container-fluid">
+    <div class="row" style="margin-top:10px;margin-bottom:10px;">
+        <form method="post" asp-action="Add">
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" type="text" placeholder="标题" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Content"></label>
+                <textarea asp-for="Content" data-provide="markdown" rows="10" cols="50" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="Type"></label>
+                <select asp-for="Type" asp-items="types" class="form-control"></select>
+            </div>
+            <hr />
+            <p>
+                <button type="submit" class="btn-dark">保存</button>
+            </p>
+        </form>
+    </div>
+</div>
