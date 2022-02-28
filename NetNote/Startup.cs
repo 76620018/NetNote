@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetNote.Middleware;
+using NetNote.Models;
 using NetNote.Repository;
 using System;
 using System.Collections.Generic;
@@ -31,6 +33,10 @@ namespace NetNote
             //Models.NoteContext.connectiongString = conn;
             services.AddDbContext<Models.NoteContext>(options => options.UseSqlServer(conn));
 
+            services.AddIdentity<NoteUser, IdentityRole>()
+                .AddEntityFrameworkStores<NoteContext>()
+                .AddDefaultTokenProviders();
+
             services.AddScoped<INoteTypeRepository, NoteTypeRepository>();
             services.AddScoped<INoteRepository, NoteRepository>();
         }
@@ -50,16 +56,17 @@ namespace NetNote
             }
             app.UseHttpsRedirection();
 
-            app.UseBasicMiddleware(new BasicUser
-            {
-                UserName = "admin",
-                Password = "123456"
-            });
+            //app.UseBasicMiddleware(new BasicUser
+            //{
+            //    UserName = "admin",
+            //    Password = "123456"
+            //});
 
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
