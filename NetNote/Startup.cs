@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NetNote.Middleware;
 using NetNote.Repository;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,13 @@ namespace NetNote
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
+            app.UseBasicMiddleware(new BasicUser
+            {
+                UserName = "admin",
+                Password = "123456"
+            });
+
             app.UseStaticFiles();
 
             app.UseRouting();

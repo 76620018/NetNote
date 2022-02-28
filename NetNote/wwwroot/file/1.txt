@@ -1,0 +1,45 @@
+print('Hello World')
+a='''This is a multi-line string. This is the first line.
+"ss'a asdf '?"adf
+asdfadsf'''
+print(a)
+b="""This is a multi-line string. This is the first line.
+"ss'a asdf '?"adf
+asdfadsf"""
+print(b)
+c='aa"bb"cc\
+ddd'
+print(c)
+d=r"Newlines are indicated by \n"
+print(d)
+for a in range(1,5):
+    print(a)
+    if(a==3):
+        break
+else:
+    print('end')
+
+print('a' * 5 )
+
+def test(a,b=2,c=3):
+    print(a,b,c)
+
+test(1)
+test(c=4,a=5)
+test(6,c=7,b=5)
+
+def total(initial=5, *numbers, **keywords):
+    count = initial
+    for number in numbers:
+        count += number
+    for key in keywords:
+        count += keywords[key]
+    return count
+print(total(10, 1, 2, 3, vegetables=50, fruits=100))
+
+
+def kword_only(a,*,b,c,**d,**e):
+    print(a,b,c,d)
+kword_only(1, b=2, c=4,x=1,y=2,z=3)
+print('-' * 20)
+kword_only(a=1,b=2, c=3,x=5,y=6,z=7)

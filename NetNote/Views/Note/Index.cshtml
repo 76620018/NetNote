@@ -3,7 +3,13 @@
     var pageindex = ViewBag.PageIndex;
     var pagecount = ViewBag.PageCount;
     var pagestart = pageindex - 2 > 0 ? pageindex - 2 : 1;
-    var pageend = pageindex + 2 > pagecount ? pagecount : pagestart + 4;
+    //if (pagecount <= 5)
+    //    pagestart = 1;
+    var pageend = pageindex + 2 >= pagecount ? pagecount : pagestart + 4;
+    if (pageend > pagecount)
+        pageend = pagecount;
+    if (pageend - pagestart <= 3 && pageend > 5)
+        pagestart = pageend - 4;
 }
 <div class="container-fluid">
     <div class="row">
@@ -13,8 +19,19 @@
     {
         @*<div class="row">*@
         <h3>@item.Title</h3>
-        <div class="content" id="md_@item.Id">@item.Content</div>
+        @*<div class="content" id="md_@item.Id">@item.Content</div>*@
         <h5>@item.Type.Name</h5>
+        <div class="content" id="md_@item.Id">@item.Content</div>
+        @if (!string.IsNullOrEmpty(item.Attachment))
+        {
+            <a href="@item.Attachment">下载</a>
+        }
+        else
+        {
+            <div class="row">
+                <a asp-action="Detail" asp-route-id="@item.Id">内容已加密</a>
+            </div>
+        }
         <hr />
         @*</div>*@
     }

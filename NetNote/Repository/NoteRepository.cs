@@ -23,7 +23,8 @@ namespace NetNote.Repository
 
         public Task<Note> GetByIdAsync(int id)
         {
-            return context.Notes.FirstOrDefaultAsync(a => a.Id == id);
+            //return context.Notes.FirstOrDefaultAsync(a => a.Id == id);
+            return context.Notes.Include(type => type.Type).FirstOrDefaultAsync(a => a.Id == id);
         }
 
         public Task<List<Note>> ListAsync()
@@ -47,7 +48,7 @@ namespace NetNote.Repository
                 .Skip((pageindex - 1) * pagesize)
                 .Take(pagesize)
                 .ToList();
-            return new Tuple<List<Note>, int>(notes, count);
+            return new Tuple<List<Note>, int>(notes, pagecount);
         }
     }
 }
