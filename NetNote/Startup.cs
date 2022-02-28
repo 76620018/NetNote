@@ -36,6 +36,12 @@ namespace NetNote
             services.AddIdentity<NoteUser, IdentityRole>()
                 .AddEntityFrameworkStores<NoteContext>()
                 .AddDefaultTokenProviders();
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+            });
 
             services.AddScoped<INoteTypeRepository, NoteTypeRepository>();
             services.AddScoped<INoteRepository, NoteRepository>();

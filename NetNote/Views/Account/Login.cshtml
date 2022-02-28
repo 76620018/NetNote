@@ -1,0 +1,31 @@
+﻿@model NetNote.ViewModels.LoginViewModel
+@{ 
+    ViewData["Title"] = "用户登录";
+}
+<div class="container-fluid">
+    <div class="row">
+        <form method="post" asp-action="Login">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" type="text" placeholder="用户名" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" type="password" placeholder="密码" class="form-control" />
+            </div>
+            <div class="form-group">
+                <div class="custom-checkbox">
+                    <input asp-for="RememberMe" />
+                    <label asp-for="RememberMe"></label>
+                </div>
+            </div>
+            <p>
+                <button type="submit" class="btn-dark">登录</button>
+            </p>
+            <p>
+                <a asp-action="Register">注册新用户</a>
+            </p>
+        </form>
+    </div>
+</div>

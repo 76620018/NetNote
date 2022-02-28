@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NetNote.Repository;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace NetNote.Controllers
 {
+    [Authorize]
     public class NoteController : Controller
     {
         private INoteRepository _notePrository;
